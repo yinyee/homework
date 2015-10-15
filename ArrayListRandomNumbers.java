@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Arrays;
 public class ArrayListRandomNumbers {
 
 	public static void main(String[] args) {
@@ -19,8 +20,9 @@ public class ArrayListRandomNumbers {
 		
 		randomNumbers = moveNegativeBack(randomNumbers);
 		
-		//Reference: http://stackoverflow.com/questions/409784/whats-the-simplest-way-to-print-a-java-array
-		System.out.println(Arrays.toString(convertArrayList(randomNumbers)));
+		Integer[] printArray = new Integer[size];
+		printArray = randomNumbers.toArray(printArray);
+		System.out.println(Arrays.toString(printArray)); // Reference: http://stackoverflow.com/questions/27495525/why-is-this-printing-the-memory-address-of-array
 		
 	}
 	
@@ -54,18 +56,6 @@ public class ArrayListRandomNumbers {
 		}
 		
 		return newArrayList;
-	}
-	
-	// Reference: https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html
-	// Reference: Textbook, Chapter 15
-	public static Integer[] convertArrayList (ArrayList<Integer> newArrayList){
-		
-		Integer[] newArray = new Integer[newArrayList.size()];
-		
-		newArray = newArrayList.toArray(newArray);
-		
-		return newArray;
-		
 	}
 
 }
