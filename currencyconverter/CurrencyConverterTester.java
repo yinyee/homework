@@ -20,7 +20,9 @@ public class CurrencyConverterTester {
 		currencies.add(JapaneseYen);
 		currencies.add(Euro);
 		
-		CurrencyConverter converter = new CurrencyConverter(currencies);
+		CurrencyConverterGUI converter = new CurrencyConverterGUI(currencies);
+		converter.setSize(200, 200);
+		converter.setVisible(true);
 		double result = converter.convert(BritishPound, 2, JapaneseYen);
 		JOptionPane.showMessageDialog(null, result);
 		System.out.println();
