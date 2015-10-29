@@ -1,7 +1,6 @@
 package currencyconverter;
 
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import java.util.HashMap;
 
 // Reference: http://cs.lmu.edu/~ray/notes/javagraphics/
 public class CurrencyConverterTester {
@@ -9,23 +8,12 @@ public class CurrencyConverterTester {
 	public static void main (String[] args) {
 		
 		// Load currencies
-		Currency USDollar = new Currency ("USD", 1.0000);
-		Currency BritishPound = new Currency ("GBP", 0.65154);
-		Currency JapaneseYen = new Currency ("JPY", 121.025);
-		Currency Euro = new Currency ("EUR", 0.90436);
-		
-		ArrayList<Currency> currencies = new ArrayList<Currency>();
-		currencies.add(USDollar);
-		currencies.add(BritishPound);
-		currencies.add(JapaneseYen);
-		currencies.add(Euro);
+		HashMap<String, Double> currencies = new HashMap<String, Double>();
+		currencies.put("USD", 1.0000);
+		currencies.put("GBP", 0.65154);
+		currencies.put("JPY", 121.025);
+		currencies.put("EUR", 0.90436);
 		
 		CurrencyConverterGUI converter = new CurrencyConverterGUI(currencies);
-		converter.setSize(200, 200);
-		converter.setVisible(true);
-		double result = converter.convert(BritishPound, 2, JapaneseYen);
-		JOptionPane.showMessageDialog(null, result);
-		System.out.println();
-		
 	}
 }

@@ -67,11 +67,7 @@ public class DNAStrand {
 	}
 	
 	public boolean containsSubsequence(String subsequence){
-		if(sequence.contains(subsequence)){
-			return true;
-		} else {
-			return false;
-		}
+		return sequence.contains(subsequence);
 	}
 		
 }

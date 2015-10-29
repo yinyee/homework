@@ -4,7 +4,6 @@ public class RobotTester {
 
 	public static void main(String[] args) {
 		
-		/*
 		Robot robot = new Robot();
 		
 		robot.move(11);
@@ -13,7 +12,7 @@ public class RobotTester {
 		robot.recharge(0.5);
 		robot.move(5);
 		robot.checkBattery();
-		 */
+		
 		int repetitions = 10;
 		
 		TalkingRobot neuroticBot = new TalkingRobot("neuroticBot");
