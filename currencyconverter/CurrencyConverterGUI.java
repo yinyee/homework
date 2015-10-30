@@ -1,6 +1,5 @@
 package currencyconverter;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -8,14 +7,13 @@ import java.awt.event.WindowListener;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class CurrencyConverterGUI extends JFrame implements WindowListener, ActionListener {
 
 	JComboBox<String> fromCurrency;
@@ -31,24 +29,13 @@ public class CurrencyConverterGUI extends JFrame implements WindowListener, Acti
 		
 		// GUI hard code
 		// Reference: http://stackoverflow.com/questions/14046837/positioning-components-in-swing-guis
+		JFrame.setDefaultLookAndFeelDecorated(true); // What difference does this make??
 		JFrame frame = new JFrame("Currency Converter");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		JPanel topPanel = new JPanel();
-		topPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		JPanel topLeftPanel = new JPanel();
-		topLeftPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		JPanel topCenterPanel = new JPanel();
-		topCenterPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		JPanel topRightPanel = new JPanel();
-		topRightPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		JPanel bottomPanel = new JPanel();
-		bottomPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		frame.setLayout(null);
 		
-		JLabel convertFromLabel = new JLabel("Convert from", JLabel.RIGHT);
-		JLabel convertToLabel = new JLabel("Convert to", JLabel.RIGHT);
+		JLabel convertLabel = new JLabel("Convert");
+		JLabel toLabel = new JLabel("To");
 		
 		String[] currencyList = currencies.keySet().toArray(new String[currencies.size()]); // Reference: http://stackoverflow.com/questions/12077769/converting-hashmap-to-stringarray
 		fromCurrency = new JComboBox<String>(currencyList); // Reference: http://stackoverflow.com/questions/1090556/java-how-to-convert-hashmapstring-object-to-array
@@ -60,26 +47,27 @@ public class CurrencyConverterGUI extends JFrame implements WindowListener, Acti
 		JButton button = new JButton("Convert");
 		button.addActionListener(this);
 		
-		topLeftPanel.add(convertFromLabel, BorderLayout.NORTH);
-		topLeftPanel.add(convertToLabel, BorderLayout.SOUTH);
+		// LHS
+		convertLabel.setBounds	(50, 100, 50, 30); // pos-x: 50, length-x: 50, total-x: 100
+		toLabel.setBounds		(50, 150, 50, 30); // total-y: 120, 170
+		frame.add(convertLabel);
+		frame.add(toLabel);
 		
-		topCenterPanel.add(fromCurrency, BorderLayout.NORTH);
-		topCenterPanel.add(toCurrency, BorderLayout.SOUTH);
+		// Center
+		fromCurrency.setBounds	(120, 100, 100, 30); // pos-x: 120, length-x: 100, total-x: 220
+		toCurrency.setBounds	(120, 150, 100, 30);
+		button.setBounds		(150, 230, 100, 30);
+		frame.add(fromCurrency);
+		frame.add(toCurrency);
+		frame.add(button);
 		
-		topRightPanel.add(userInput, BorderLayout.NORTH);
-		topRightPanel.add(answer, BorderLayout.SOUTH);
+		// RHS
+		userInput.setBounds		(240, 100, 100, 30); // pos-x: 240, length-x: 100, total-x: 340
+		answer.setBounds		(240, 150, 100, 30);
+		frame.add(userInput);
+		frame.add(answer);
 		
-		topPanel.add(topLeftPanel, BorderLayout.WEST);
-		topPanel.add(topCenterPanel, BorderLayout.CENTER);
-		topPanel.add(topRightPanel, BorderLayout.EAST);
-		
-		bottomPanel.add(button, BorderLayout.CENTER);
-		
-		panel.add(topPanel, BorderLayout.NORTH);
-		panel.add(bottomPanel, BorderLayout.SOUTH);
-		
-		frame.setContentPane(panel);
-		frame.pack();
+		frame.setSize			(400, 400);
 		frame.setVisible(true);
 	}
 		
@@ -91,7 +79,7 @@ public class CurrencyConverterGUI extends JFrame implements WindowListener, Acti
 		double convertToUSD = currencies.get(fromCurrencyString);
 		String toCurrencyString = (String)toCurrency.getSelectedItem();
 		double convertFromUSD = currencies.get(toCurrencyString);
-		DecimalFormat df = new DecimalFormat("#.00"); // Reference: https://docs.oracle.com/javase/tutorial/i18n/format/decimalFormat.html
+		DecimalFormat df = new DecimalFormat("###,###,###.00"); // Reference: https://docs.oracle.com/javase/tutorial/i18n/format/decimalFormat.html
 		result = df.format(fromAmount / convertToUSD * convertFromUSD);
 	}
 
