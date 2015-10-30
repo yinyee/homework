@@ -4,6 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 
@@ -21,6 +28,7 @@ public class CurrencyConverterGUI extends JFrame implements WindowListener, Acti
 	JTextField userInput;
 	JLabel answer;
 	private String result;
+	private String store;
 	private HashMap<String, Double> currencies = new HashMap<String, Double>(); // Reference: https://docs.oracle.com/javase/7/docs/api/java/util/Hashtable.html
 	
 	public CurrencyConverterGUI (HashMap<String, Double> currencies) {
@@ -81,15 +89,33 @@ public class CurrencyConverterGUI extends JFrame implements WindowListener, Acti
 		double convertFromUSD = currencies.get(toCurrencyString);
 		DecimalFormat df = new DecimalFormat("###,###,###.00"); // Reference: https://docs.oracle.com/javase/tutorial/i18n/format/decimalFormat.html
 		result = df.format(fromAmount / convertToUSD * convertFromUSD);
+		StringBuilder str = new StringBuilder();
+		store = str.append(fromCurrencyString + " " + fromAmountString + " " + toCurrencyString + " " + result).toString();
 	}
 
 	// Reference: https://docs.oracle.com/javase/tutorial/uiswing/events/actionlistener.html
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		convert();
-		answer.setText(result); // Reference: http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html
+		// Reference: http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html
+		answer.setText(result);
+		// Reference: http://stackoverflow.com/questions/2885173/how-to-create-a-file-and-write-to-a-file-in-java
+		File outputFile = new File("C://cs/student/msc3/cs/2015/yinyekan/Desktop/output.txt");
+		try {
+			if (outputFile.isFile()) {
+				
+			} else {
+				
+				FileWriter fileWriter = new FileWriter(outputFile); // Reference: https://docs.oracle.com/javase/8/docs/api/java/io/FileWriter.html
+				Writer writer = new BufferedWriter(fileWriter);
+				writer.write(store);
+				writer.close();
+			}
+		} catch (IOException err) {
+			System.err.println("Error writing output to file");
+		}
 	}
-
+	
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
