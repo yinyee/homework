@@ -99,21 +99,6 @@ public class CurrencyConverterGUI extends JFrame implements WindowListener, Acti
 		convert();
 		// Reference: http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html
 		answer.setText(result);
-		// Reference: http://stackoverflow.com/questions/2885173/how-to-create-a-file-and-write-to-a-file-in-java
-		File outputFile = new File("C://cs/student/msc3/cs/2015/yinyekan/Desktop/output.txt");
-		try {
-			if (outputFile.isFile()) {
-				
-			} else {
-				
-				FileWriter fileWriter = new FileWriter(outputFile); // Reference: https://docs.oracle.com/javase/8/docs/api/java/io/FileWriter.html
-				Writer writer = new BufferedWriter(fileWriter);
-				writer.write(store);
-				writer.close();
-			}
-		} catch (IOException err) {
-			System.err.println("Error writing output to file");
-		}
 	}
 	
 	@Override

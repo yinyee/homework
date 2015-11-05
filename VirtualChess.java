@@ -1,3 +1,16 @@
+/**
+ *  This virtual chess game is played using the console.  Players input their moves into the console
+ *  in the format of 'E1 to E5'.  After each move, the updated chess board is printed on the console.
+ *  The game has implemented simple move validation for the different types of playing pieces.  The
+ *  is exited when one of the players types in 'Exit' during their move, or when a King is taken by
+ *  another piece.
+ *  
+ *  Future versions should implement constraints to prevent pieces from disappearing off the chess
+ *  board, a piece of one colour taking another piece of the same colour, and more sophisticated game
+ *  logic such as castling, checking for 'Check' and 'Checkmate' moves, et cetera.
+ *  @author yinyekan
+ */
+
 import java.util.Scanner;
 public class VirtualChess {
 
@@ -108,6 +121,10 @@ public class VirtualChess {
 		robot.close();
 	}
 
+/**
+ * The printBoard method prints the chess board to the console.
+ * @param chessboard
+ */
 	public static void printBoard(Chessmen[][] chessboard){
 		
 		System.out.println("\tA\tB\tC\tD\tE\tF\tG\tH");
@@ -167,6 +184,12 @@ public class VirtualChess {
 		
 	}
 	
+/**
+ * The updateBoard method updates the chess board with the move that the player has entered into the console.
+ * @param move
+ * @param chessboard
+ * @return
+ */
 	public static Chessmen[][] updateBoard(String move, Chessmen[][]chessboard){
 		
 		// Reference: https://moodle.ucl.ac.uk/pluginfile.php/3058331/mod_resource/content/1/Tutorial%201.pdf
@@ -199,6 +222,12 @@ public class VirtualChess {
 		return chessboard;
 	}
 	
+/**
+ * The convertCoordinates method converts the moves entered by the player in standard chess terminology
+ * into coordinates that correspond to the programming logic.
+ * @param userCoordinates
+ * @return
+ */
 	public static int convertCoordinates(char userCoordinates){
 		
 		// Reference: http://www.asciitable.com/
@@ -258,6 +287,17 @@ public class VirtualChess {
 		return boardCoordinates;
 	}
 	
+/**
+ * The checkLegal method checks if the move entered by the player follows the most basic movement rules
+ * for each type of chess piece.
+ * @param piece
+ * @param target
+ * @param from_i
+ * @param from_j
+ * @param to_i
+ * @param to_j
+ * @return
+ */
 	public static boolean checkLegal(Chessmen piece, Chessmen target, int from_i, int from_j, int to_i, int to_j){
 		
 		// Reference: https://en.wikipedia.org/wiki/Rules_of_chess
