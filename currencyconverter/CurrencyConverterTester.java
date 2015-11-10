@@ -15,5 +15,6 @@ public class CurrencyConverterTester {
 		currencies.put("EUR", 0.90436);
 		
 		CurrencyConverterGUI converter = new CurrencyConverterGUI(currencies);
+
 	}
 }

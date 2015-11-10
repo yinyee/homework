@@ -1,5 +1,6 @@
 package currencyconverter;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -16,6 +17,7 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class CurrencyConverterGUI extends JFrame implements WindowListener, ActionListener {
 
+	JFrame frame;
 	JComboBox<String> fromCurrency;
 	JComboBox<String> toCurrency;
 	JTextField userInput;
@@ -24,13 +26,14 @@ public class CurrencyConverterGUI extends JFrame implements WindowListener, Acti
 	private HashMap<String, Double> currencies = new HashMap<String, Double>(); // Reference: https://docs.oracle.com/javase/7/docs/api/java/util/Hashtable.html
 	
 	public CurrencyConverterGUI (HashMap<String, Double> currencies) {
-		
 		this.currencies = currencies;
-		
+		initialise();
+	}
+	
+	private void initialise () {
 		// GUI hard code
 		// Reference: http://stackoverflow.com/questions/14046837/positioning-components-in-swing-guis
 		JFrame.setDefaultLookAndFeelDecorated(true); // What difference does this make??
-		JFrame frame = new JFrame("Currency Converter");
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setLayout(null);
 		
