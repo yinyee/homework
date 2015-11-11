@@ -1,3 +1,4 @@
+package chessgame;
 /**
  *  This virtual chess game is played using the console.  Players input their moves into the console
  *  in the format of 'E1 to E5'.  After each move, the updated chess board is printed on the console.
@@ -11,8 +12,14 @@
  *  @author yinyekan
  */
 
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.*;
+
 public class VirtualChess {
+	
+	// Declare logger
+	private final static Logger LOGGER = Logger.getLogger(VirtualChess.class.getName());
 
 	// Reference: https://moodle.ucl.ac.uk/pluginfile.php/3058331/mod_resource/content/1/Tutorial%201.pdf
 	public enum Chessmen{
@@ -34,6 +41,15 @@ public class VirtualChess {
 	// Reference: http://pad3.whstatic.com/images/e/e8/Chessboard-Diagram.png
 	public static void main(String[] args) {
 	
+		try {
+			ChessLogger.setup();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Cannot set up ChessLogger");
+		}
+		
+		LOGGER.setLevel(Level.ALL);
+		
 		Chessmen[][] chessboard = new Chessmen[8][8]; // Reference: https://moodle.ucl.ac.uk/pluginfile.php/3058331/mod_resource/content/1/Tutorial%201.pdf
 		
 		for (int i = 0; i < 8; i++){
@@ -192,6 +208,8 @@ public class VirtualChess {
  */
 	public static Chessmen[][] updateBoard(String move, Chessmen[][]chessboard){
 		
+		LOGGER.info(move);
+		
 		// Reference: https://moodle.ucl.ac.uk/pluginfile.php/3058331/mod_resource/content/1/Tutorial%201.pdf
 		// Reference: http://www.w3schools.com/jsref/jsref_split.asp
 		String[] moveComponents = move.split(" ");
@@ -210,6 +228,7 @@ public class VirtualChess {
 		
 		if (checkLegal(piece, target, from_i, from_j, to_i, to_j)){
 			if (target == Chessmen.BLACK_KING || target == Chessmen.WHITE_KING){
+				LOGGER.severe("King is captured.  Game over.");
 				System.out.println("King is captured.  Game over.");
 				System.exit(0); // Reference: Help from tutor
 			} else {
@@ -217,6 +236,7 @@ public class VirtualChess {
 				chessboard[from_i][from_j] = Chessmen.EMPTY;
 			}} 
 			else {
+				LOGGER.severe("That is an illegal move");
 				System.out.println("That is an illegal move.");
 			}
 		return chessboard;
