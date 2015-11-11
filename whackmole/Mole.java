@@ -7,9 +7,8 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-public class Mole extends JButton {
+public class Mole extends JButton implements ActionListener {
 
-	private MoleButtonListener l;
 	ImageIcon originalMole = new ImageIcon("mole.gif");
 	Image unscaledMole = originalMole.getImage();
 	Image scaledMole = unscaledMole.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH);
@@ -17,14 +16,12 @@ public class Mole extends JButton {
 
 	public Mole () {
 		this.setIcon(mole);
-		this.addActionListener(l);
+		this.addActionListener(this);
 	}
 	
-	private class MoleButtonListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			setVisible(false);
-		}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		this.setVisible(false);
 	}
 
 }
