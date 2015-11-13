@@ -1,3 +1,4 @@
+package xmlparser;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -5,6 +6,8 @@ import java.awt.event.ActionListener;
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -16,6 +19,7 @@ import javax.swing.ScrollPaneConstants;
 
 public class XMLParser extends JFrame {
 	
+	private final static Logger LOGGER = Logger.getLogger(XMLParser.class.getName());
 	final JFileChooser fileChooser = new JFileChooser();
 	final File defaultDirectory = new File("/Users/yinyee/Documents/workspace/Homework/src");
 	private int command;
@@ -36,6 +40,9 @@ public class XMLParser extends JFrame {
 	}
 	
 	public static void main (String[] args) {
+		
+		LOGGER.setLevel(Level.ALL);
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -46,8 +53,10 @@ public class XMLParser extends JFrame {
 					case JFileChooser.APPROVE_OPTION:
 						input = new File(window.fileChooser.getSelectedFile().toString());
 						window.open(input);
+						LOGGER.info("Opening " + input.toString());
 						break;
 					case JFileChooser.CANCEL_OPTION:
+						LOGGER.info("Application closed");
 						System.exit(0);
 						break;
 					}
@@ -57,6 +66,12 @@ public class XMLParser extends JFrame {
 			}
 		});
 	}
+	
+	/**
+	 * The following section contains the main methods of the XMLParser class
+	 * i.e. open(), outputDOMTree(), and getAttributes().
+	 * @param input
+	 */
 	
 	private void open(File input) {
 		
@@ -124,7 +139,11 @@ public class XMLParser extends JFrame {
 			}
 			wysiwyg.setText(wysiwygStringBuilder.toString());
 			reader.close();
+			
+			LOGGER.info("File opening succeeded");
+			
 		} catch (Exception e) {
+			LOGGER.severe("File opening failed");
 			e.printStackTrace();
 		}
 	}
@@ -161,6 +180,12 @@ public class XMLParser extends JFrame {
 			}
 		}
 	}
+		
+	/**
+	 * The following section contains helper classes for XMLParser.
+	 * @author yinyee
+	 *
+	 */
 	
 	private class ParserListener implements ActionListener {
 
@@ -170,15 +195,12 @@ public class XMLParser extends JFrame {
 			case ("Parse"): 
 				ActionThread parseThread = new ActionThread();
 				parseThread.start();
-				System.out.println(input.toString());
 				parseThread.parse(input);
 				break;
 			case ("Save"): 
 				ActionThread saveThread = new ActionThread();
 				saveThread.start();
-//				 create new file from edited
-//				 parse new file
-//				 ok ? save : display error
+				saveThread.save();
 			}	
 		}		
 	}
@@ -199,6 +221,22 @@ public class XMLParser extends JFrame {
 				parserStringBuilder.append("-----------------------------------\n");
 				outputDOMTree(doc.getDocumentElement());
 			parseResult.setText(parserStringBuilder.toString());
+			} catch (Exception e) {
+				parseResult.setText("ERROR: " + e.getMessage());
+				LOGGER.severe("Input XML file is not well-formed");
+				e.printStackTrace();
+			}
+		}
+		
+		private void save() {
+			File newFile = new File("edited.xml");
+			LOGGER.info("Edits saved as edited.xml");
+			try {
+				BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
+				wysiwyg.write(writer); // Reference: http://stackoverflow.com/questions/9690686/save-a-the-text-from-a-jtextarea-ie-save-as-into-a-new-txt-file
+				writer.close();
+				parse(newFile);
+				LOGGER.info("Parse succeeded for edited file");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

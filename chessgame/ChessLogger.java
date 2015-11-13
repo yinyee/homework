@@ -18,9 +18,6 @@ public class ChessLogger {
 		// Create new instance of Logger
 		Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 		
-		// Set log level
-//		logger.setLevel(Level.INFO);
-		
 		// Create new instance of formatter
 		logFormatter = new ChessLogFileFormatter();
 		
