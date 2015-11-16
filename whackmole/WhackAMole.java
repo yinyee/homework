@@ -37,17 +37,20 @@ public class WhackAMole {
 	private ArrayList<Object> resetScreen = new ArrayList<Object>();
 	private GameEvent actionEvent = new GameEvent();
 
-	ImageIcon originalMole = new ImageIcon("/Users/yinyee/Documents/workspace/Homework/src/whackmole/mole.png");
+//	ImageIcon originalMole = new ImageIcon("/Users/yinyee/Documents/workspace/Homework/src/whackmole/mole.png");
+	ImageIcon originalMole = new ImageIcon("/cs/student/msc3/cs/2015/yinyekan/workspace/Tutorials/src/whackmole/mole.png");
 	Image unscaledMole = originalMole.getImage();
 	Image scaledMole = unscaledMole.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH);
 	ImageIcon mole = new ImageIcon(scaledMole);
 	
-	ImageIcon originalX = new ImageIcon("/Users/yinyee/Documents/workspace/Homework/src/whackmole/red-x.png");
+//	ImageIcon originalX = new ImageIcon("/Users/yinyee/Documents/workspace/Homework/src/whackmole/red-x.png");
+	ImageIcon originalX = new ImageIcon("/cs/student/msc3/cs/2015/yinyekan/workspace/Tutorials/src/whackmole/red-x.png");
 	Image unscaledX = originalX.getImage();
 	Image scaledX = unscaledX.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH);
 	ImageIcon x = new ImageIcon(scaledX);
 	
-	ImageIcon originalHole = new ImageIcon("/Users/yinyee/Documents/workspace/Homework/src/whackmole/hole.png");
+//	ImageIcon originalHole = new ImageIcon("/Users/yinyee/Documents/workspace/Homework/src/whackmole/hole.png");
+	ImageIcon originalHole = new ImageIcon("/cs/student/msc3/cs/2015/yinyekan/workspace/Tutorials/src/whackmole/hole.png");
 	Image unscaledHole = originalHole.getImage();
 	Image scaledHole = unscaledHole.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH);
 	ImageIcon hole = new ImageIcon(scaledHole);
